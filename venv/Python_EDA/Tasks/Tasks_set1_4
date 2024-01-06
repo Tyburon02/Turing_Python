@@ -1,0 +1,6 @@
+adjective = input("Enter an adjective: ")
+noun = input("Enter a noun: ")
+verb = input("Enter a verb: ")
+
+story = "The " + adjective + " " + noun + " was " + verb + " over the lazy dog."
+print(story)

@@ -1,0 +1,23 @@
+import pandas as pd
+
+# Read the combined CSV file
+data = pd.read_csv('C:/Users/octav/Downloads/our_rfm.csv.csv')
+
+# Calculate differences
+data['recency_diff'] = data['our_recency'] - data['rfm_value_recency']
+data['frequency_diff'] = data['our_frequency'] - data['rfm_value_frequency']
+data['monetary_diff'] = data['our_monetary'] - data['rfm_value_monetary']
+
+# Descriptive stats for differences
+print(data[['recency_diff', 'frequency_diff', 'monetary_diff']].describe())
+
+# Highlight discrepancies beyond a certain threshold
+threshold = 5  # example threshold
+discrepancies = data[
+    (data['recency_diff'].abs() > threshold) |
+    (data['frequency_diff'].abs() > threshold) |
+    (data['monetary_diff'].abs() > threshold)
+]
+
+print(discrepancies)
+

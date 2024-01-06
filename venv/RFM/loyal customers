@@ -1,0 +1,12 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+# Load the dataset
+data = pd.read_csv("C:\\Users\\octav\\OneDrive\\Desktop\\Turing Projects\\Linear and Logistic Regression\\heart_deases.csv")
+
+# Split the dataset into training and validation sets (80-20% split)
+train, validation = train_test_split(data, test_size=0.2, random_state=42)
+
+# Save the split datasets to new CSV files
+train.to_csv("C:\\Users\\octav\\OneDrive\\Desktop\\Turing Projects\\Linear and Logistic Regression\\training_data.csv", index=False)
+validation.to_csv("C:\\Users\\octav\\OneDrive\\Desktop\\Turing Projects\\Linear and Logistic Regression\\validation_data.csv", index=False)

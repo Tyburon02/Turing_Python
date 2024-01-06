@@ -1,0 +1,58 @@
+from pptx import Presentation
+from pptx.enum.shapes import MSO_SHAPE
+from pptx.util import Inches, Pt
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create a new presentation object
+prs = Presentation()
+
+# Slide dimensions
+prs.slide_width = Inches(16)
+prs.slide_height = Inches(9)
+
+# Add a slide with a title and content layout
+slide = prs.slides.add_slide(prs.slide_layouts[1])
+
+# Add a title and a subtitle in
+# slide i.e. in slide 0
+slide.shapes.title.text = "Logistic Regression Analysis"
+slide.placeholders[1].text = "Dataset Overview, Model Creation, Evaluation, and Interpretation"
+
+# Create a new slide with title and content layout
+slide = prs.slides.add_slide(prs.slide_layouts[1])
+slide.shapes.title.text = "Dataset Overview"
+slide.placeholders[1].text = ("The dataset comprises various health metrics of patients. Our goal is to predict the likelihood of a heart disease event in ten years.")
+
+# Create a new slide for Model Creation and Evaluation
+slide = prs.slides.add_slide(prs.slide_layouts[1])
+slide.shapes.title.text = "Model Creation and Evaluation"
+slide.placeholders[1].text = ("We've employed a logistic regression model. With an accuracy of 62.8% and an ROC-AUC of 0.645, the model shows promise, though there's room for improvement.")
+
+# Create a new slide for Coefficient Interpretation
+slide = prs.slides.add_slide(prs.slide_layouts[1])
+slide.shapes.title.text = "Coefficient and Odds Ratios Interpretation"
+slide.placeholders[1].text = ("Coefficients provide direction and magnitude of the relationship between predictors and the outcome. Odds Ratios further allow us to interpret the change in odds given a one unit change in the predictor.")
+
+# Let's add a bar graph to display Odds Ratios
+slide = prs.slides.add_slide(prs.slide_layouts[5])
+
+chart_data = {
+    'labels': ['male', 'norm_age', 'norm_log_cigsPerDay', 'norm_log_glucose'],
+    'values': [1.38629, 13.4148, 1.87644, 30.5754]
+}
+
+fig, ax = plt.subplots()
+ax.bar(chart_data['labels'], chart_data['values'], color=['#FF5733', '#33FF57', '#3357FF', '#FF33A1'])
+ax.set_ylabel('Odds Ratios')
+ax.set_title('Odds Ratios of Significant Predictors')
+plt.tight_layout()
+plt.savefig('odds_ratios.png', dpi=300)
+plt.close()
+
+# Add the image to the presentation
+left = top = Inches(1)
+slide.shapes.add_picture('odds_ratios.png', left, top, width=prs.slide_width-2*Inches(1))
+
+# Save the presentation file
+prs.save('Logistic_Regression_Presentation.pptx')

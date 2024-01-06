@@ -1,0 +1,32 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import roc_auc_score, accuracy_score, precision_score, recall_score
+from imblearn.over_sampling import SMOTE
+
+# Load the dataset
+data = pd.read_csv("C:/Users/octav/OneDrive/Desktop/Turing Projects/Linear and Logistic Regression/validation_data_good.csv")
+
+# Split the dataset into features (X) and target (y)
+X = data.drop("TenYearCHD", axis=1)
+y = data["TenYearCHD"]
+
+# Split the data into training and validation sets with a 40/60 ratio
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.60, random_state=42)
+
+# Applying SMOTE on Training Data
+smote = SMOTE(random_state=42)
+X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
+
+# Training the model
+model = LogisticRegression(max_iter=10000)
+model.fit(X_train_resampled, y_train_resampled)
+
+# Predictions
+y_pred = model.predict(X_val)
+
+# Evaluation
+print("ROC-AUC:", roc_auc_score(y_val, y_pred))
+print("Accuracy:", accuracy_score(y_val, y_pred))
+print("Precision:", precision_score(y_val, y_pred))
+print("Recall:", recall_score(y_val, y_pred))

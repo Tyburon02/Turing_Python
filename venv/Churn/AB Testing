@@ -1,0 +1,14 @@
+import numpy as np
+from statsmodels.stats.proportion import proportions_ztest
+
+# For NewYear campaign
+count = np.array([57, 30])
+nobs = np.array([4430, 13039])
+stat, pval = proportions_ztest(count, nobs)
+print("NewYear campaign Z-score and P-value: ", f'{stat}, {pval}')
+
+# For BlackFriday campaign
+count = np.array([8, 24])
+nobs = np.array([8220, 24276])
+stat, pval = proportions_ztest(count, nobs)
+print("BlackFriday campaign Z-score and P-value: ", f'{stat}, {pval}')

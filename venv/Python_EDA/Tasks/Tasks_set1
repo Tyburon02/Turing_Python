@@ -1,0 +1,14 @@
+def categorize_number(x):
+    try:
+        val = float(x)
+        if val < 5:
+            return 'Small'
+        elif 5 <= val <= 10:
+            return 'Medium'
+        else:
+            return 'Large'
+    except ValueError:
+        return 'Error'
+
+print(categorize_number(4))
+

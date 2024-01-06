@@ -1,0 +1,21 @@
+string = """
+Twinkle, twinkle, little star,
+How I wonder what you are.
+Up above the world so high,
+Like a diamond in the sky.
+Twinkle, twinkle little star,
+How I wonder what you are.
+"""
+
+word_count = {}
+for word in string.replace(',', '').replace('.', '').lower().split():
+    if word in word_count:
+        word_count[word] += 1
+    else:
+        word_count[word] = 1
+
+most_frequent_word = max(word_count, key=word_count.get)
+
+# Output
+print("Word count:", word_count)
+print("Most frequent word:", most_frequent_word)
