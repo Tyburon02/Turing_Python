@@ -21,7 +21,7 @@ def create_visualizations(data):
     plt.ylabel('Total Revenue')
     plt.show()
     
-    # Example: Bar plot for total conversions by weekday
+    # Bar plot for total conversions by weekday
     plt.figure()
     sns.barplot(data=data, x='weekday_name', y='total_conversions')
     plt.title('Total Conversions by Weekday')
